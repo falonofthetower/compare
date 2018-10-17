@@ -26,7 +26,7 @@ class Set
     File.readlines(second).each_with_index do |item,index|
       if index.even?
         @name = item.strip.to_sym
-        @library = @libraries.map {|l| l if l.name == @name}.first ||
+        @library = @libraries.map {|l| l if l.name == @name}.compact.first ||
           Library.new(@name)
       else
         @library.size_finish = item.scan(/\d+/).join().to_i
@@ -52,7 +52,7 @@ class Library
   end
 
   def difference
-    size_start - size_finish
+    size_finish - size_start
   end
 end
 
